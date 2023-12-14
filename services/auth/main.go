@@ -1,9 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/caarlos0/env/v10"
 )
@@ -13,20 +15,24 @@ type config struct {
 }
 
 func main() {
-	fmt.Println("Auth service")
-
 	cfg := config{}
 	if err := env.Parse(&cfg); err != nil {
 		log.Panic("Can't parse env vars")
 	}
 
-	done := make(chan bool)
 	go func() {
-		if err := http.ListenAndServe(":"+cfg.Port, nil); err != nil {
+		server := &http.Server{
+			Addr: ":" + cfg.Port,
+		}
+		if err := server.ListenAndServe(); err != nil {
 			log.Panic("Can't start server")
 		}
 	}()
 
-	fmt.Printf("Listening on port: %s\n", cfg.Port)
-	<-done
+	log.Printf("Service \"Auth\", listening on port: %s\n", cfg.Port)
+
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, syscall.SIGTERM, syscall.SIGINT)
+	<-stop
+	log.Print("Gracefully stopped")
 }

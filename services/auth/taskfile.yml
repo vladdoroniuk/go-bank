@@ -1,0 +1,16 @@
+version: "3"
+
+dotenv: [".env"]
+
+vars:
+  SERVICE: auth
+
+tasks:
+  build:
+    cmds:
+      - go build -o ./bin/{{.SERVICE}}
+
+  run:
+    deps: [build]
+    cmds:
+      - ./bin/{{.SERVICE}}
