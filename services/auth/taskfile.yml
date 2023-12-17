@@ -1,9 +1,9 @@
 version: "3"
 
-dotenv: [".env"]
-
 vars:
   SERVICE: auth
+
+dotenv: [".env"]
 
 tasks:
   build:

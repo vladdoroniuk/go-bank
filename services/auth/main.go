@@ -20,9 +20,15 @@ func main() {
 		log.Panic("Can't parse env vars")
 	}
 
+	getHandler := NewGetHandler()
+
+	mux := http.NewServeMux()
+	mux.Handle("/user-profiles", getHandler)
+
 	go func() {
 		server := &http.Server{
-			Addr: ":" + cfg.Port,
+			Addr:    ":" + cfg.Port,
+			Handler: mux,
 		}
 		if err := server.ListenAndServe(); err != nil {
 			log.Panic("Can't start server")

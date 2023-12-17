@@ -1,6 +1,11 @@
 version: "3"
 
 tasks:
-  up:
+  colima_start:
+    cmds:
+      - colima start --arch linux/amd64
+
+  docker_up:
+    deps: [colima_start]
     cmds:
       - docker-compose up -d
