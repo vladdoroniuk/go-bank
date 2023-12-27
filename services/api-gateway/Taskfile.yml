@@ -1,0 +1,16 @@
+version: "3"
+
+vars:
+  SERVICE_NAME: api-gateway
+
+dotenv: [".env"]
+
+tasks:
+  build:
+    cmds:
+      - go build -o ./bin/{{.SERVICE_NAME}}
+
+  run:
+    deps: [build]
+    cmds:
+      - ./bin/{{.SERVICE_NAME}}
