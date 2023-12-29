@@ -8,6 +8,7 @@ import (
 	"syscall"
 
 	"github.com/caarlos0/env/v10"
+	"github.com/gorilla/mux"
 )
 
 type config struct {
@@ -20,22 +21,20 @@ func main() {
 		log.Panic("Can't parse env vars")
 	}
 
-	getHandler := NewGetHandler()
-
-	mux := http.NewServeMux()
-	mux.Handle("/user-profiles", getHandler)
+	r := mux.NewRouter().StrictSlash(true)
+	api := r.PathPrefix("/api").Subrouter()
 
 	go func() {
 		server := &http.Server{
 			Addr:    ":" + cfg.Port,
-			Handler: mux,
+			Handler: r,
 		}
 		if err := server.ListenAndServe(); err != nil {
 			log.Panic("Can't start server")
 		}
 	}()
 
-	log.Printf("Service \"Auth\", listening on port: %s\n", cfg.Port)
+	log.Printf("Service \"auth\", listening on port: %s\n", cfg.Port)
 
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, syscall.SIGTERM, syscall.SIGINT)

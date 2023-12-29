@@ -1,16 +1,16 @@
 version: "3"
 
 vars:
-  SERVICE: auth
+  SERVICE_NAME: auth
 
 dotenv: [".env"]
 
 tasks:
   build:
     cmds:
-      - go build -o ./bin/{{.SERVICE}}
+      - go build -o ./bin/{{.SERVICE_NAME}}
 
   run:
     deps: [build]
     cmds:
-      - ./bin/{{.SERVICE}}
+      - ./bin/{{.SERVICE_NAME}}

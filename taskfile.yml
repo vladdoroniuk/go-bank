@@ -9,3 +9,7 @@ tasks:
     deps: [colima_start]
     cmds:
       - docker-compose up -d
+
+  buf_gen:
+    cmds:
+      - buf generate proto

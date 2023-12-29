@@ -5,17 +5,15 @@ type UserProfile struct {
 	LastName  string `json:"last_name"`
 }
 
-type UserProfiles []*UserProfile
-
 func CreateUserProfile(userProfile *UserProfile) {
 	userProfiles = append(userProfiles, userProfile)
 }
 
-func GetUserProfiles() UserProfiles {
+func GetUserProfiles() []*UserProfile {
 	return userProfiles
 }
 
-var userProfiles = UserProfiles{
+var userProfiles = []*UserProfile{
 	{
 		FirstName: "Roman",
 		LastName:  "Tkachenko",

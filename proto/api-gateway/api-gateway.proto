@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package apigateway.v1;
+
+option go_package = "github.com/vladdoroniuk/rose/services/api-gatewat";
+
+service AService {
+  rpc GetUsers (EmptyRequest) returns (GetUsersResponse);
+}
+
+message EmptyRequest {}
+
+message GetUsersResponse {
+  string name = 1;
+  int32 age = 2;
+}
