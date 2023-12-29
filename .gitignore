@@ -23,6 +23,3 @@ bin
 
 # Env
 .env
-
-# Proto gen
-gen
