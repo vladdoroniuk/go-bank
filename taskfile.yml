@@ -5,13 +5,23 @@ tasks:
     cmds:
       - colima start --arch linux/amd64
 
+  docker_stop_all:
+    deps: [colima_start]
+    cmds:
+      - docker ps -q | xargs -r docker stop
+
+  docker_prune_all:
+    deps: [colima_start, docker_stop_all]
+    cmds:
+      - docker system prune -af
+
   docker_up:
     deps: [colima_start]
     cmds:
       - docker compose up -d
 
   docker_bk_up:
-    deps: [colima_start]
+    deps: [colima_start, docker_prune_all]
     cmds:
       - DOCKER_BUILDKIT=0 docker compose up -d
 

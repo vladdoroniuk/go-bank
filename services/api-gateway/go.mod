@@ -3,8 +3,7 @@ module github.com/vladdoroniuk/rose/services/api-gateway
 go 1.21.5
 
 require (
-	github.com/caarlos0/env/v10 v10.0.0
-	github.com/vladdoroniuk/rose/proto_gen v0.0.0-20231230100738-6a77be56b57d
+	github.com/vladdoroniuk/rose/proto_gen v0.0.0-20231230150022-4174934940d4
 	google.golang.org/grpc v1.60.1
 )
 

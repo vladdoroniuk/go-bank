@@ -8,27 +8,26 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/caarlos0/env/v10"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
 	pb "github.com/vladdoroniuk/rose/proto_gen/auth"
 )
 
-type config struct {
+/* type config struct {
 	Port string `env:"PORT"`
-}
+} */
 
 func main() {
-	cfg := config{}
+	/* cfg := config{}
 	if err := env.Parse(&cfg); err != nil {
 		log.Panic("Can't parse env")
-	}
+	} */
 
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
-	conn, err := grpc.Dial(":"+cfg.Port, opts...)
+	conn, err := grpc.Dial("rose-auth:3001", opts...)
 	if err != nil {
 		log.Panic("Fail to dial")
 	}
@@ -42,7 +41,7 @@ func main() {
 
 	fmt.Println(users)
 
-	log.Printf("Service \"api-gateway\", listening on port: %s\n", cfg.Port)
+	//log.Printf("Service \"api-gateway\", listening on port: %s\n", cfg.Port)
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, syscall.SIGTERM, syscall.SIGINT)
 	<-stop
