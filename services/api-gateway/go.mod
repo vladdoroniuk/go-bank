@@ -4,4 +4,4 @@ go 1.21.4
 
 require github.com/gorilla/mux v1.8.1
 
-require github.com/caarlos0/env/v10 v10.0.0 // indirect
+require github.com/caarlos0/env/v10 v10.0.0

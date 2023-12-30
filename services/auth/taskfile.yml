@@ -6,11 +6,11 @@ vars:
 dotenv: [".env"]
 
 tasks:
-  build:
+  go_build:
     cmds:
       - go build -o ./bin/{{.SERVICE_NAME}}
 
-  run:
-    deps: [build]
+  go_run:
+    deps: [go_build]
     cmds:
       - ./bin/{{.SERVICE_NAME}}

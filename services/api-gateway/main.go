@@ -10,6 +10,8 @@ import (
 	"github.com/caarlos0/env/v10"
 	"github.com/gorilla/mux"
 	"github.com/vladdoroniuk/rose/services/api-gateway/handlers"
+
+	pb "github.com/vladdoroniuk/rose/proto_gen/auth"
 )
 
 type config struct {
