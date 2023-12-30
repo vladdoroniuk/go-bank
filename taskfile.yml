@@ -8,7 +8,17 @@ tasks:
   docker_up:
     deps: [colima_start]
     cmds:
-      - docker-compose up -d
+      - docker compose up -d
+
+  docker_bk_up:
+    deps: [colima_start]
+    cmds:
+      - DOCKER_BUILDKIT=0 docker compose up -d
+
+  docker_debug_run:
+    deps: [colima_start]
+    cmds:
+      - docker run --rm -it {{.CLI_ARGS}} sh
 
   buf_gen:
     cmds:

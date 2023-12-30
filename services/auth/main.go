@@ -23,6 +23,9 @@ func main() {
 
 	r := mux.NewRouter().StrictSlash(true)
 	api := r.PathPrefix("/api").Subrouter()
+	api.HandleFunc("/users", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Test"))
+	})
 
 	go func() {
 		server := &http.Server{

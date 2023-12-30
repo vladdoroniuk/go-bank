@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package auth.v1;
 
-option go_package = "github.com/vladdoroniuk/rose/proto/auth";
+option go_package = "github.com/vladdoroniuk/rose/proto_gen/auth";
 
-service AuthService {
+service UsersService {
   rpc GetUsers (EmptyRequest) returns (GetUsersResponse);
 }
 

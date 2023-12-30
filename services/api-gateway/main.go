@@ -1,15 +1,16 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"log"
-	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 
 	"github.com/caarlos0/env/v10"
-	"github.com/gorilla/mux"
-	"github.com/vladdoroniuk/rose/services/api-gateway/handlers"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 
 	pb "github.com/vladdoroniuk/rose/proto_gen/auth"
 )
@@ -24,20 +25,22 @@ func main() {
 		log.Panic("Can't parse env")
 	}
 
-	r := mux.NewRouter().StrictSlash(true)
-	api := r.PathPrefix("/api").Subrouter()
+	var opts []grpc.DialOption
+	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
-	handlers.AuthHandlers(api)
+	conn, err := grpc.Dial(":"+cfg.Port, opts...)
+	if err != nil {
+		log.Panic("Fail to dial")
+	}
+	defer conn.Close()
 
-	go func() {
-		srv := http.Server{
-			Addr:    ":" + cfg.Port,
-			Handler: r,
-		}
-		if err := srv.ListenAndServe(); err != nil {
-			log.Panic("Can't start server")
-		}
-	}()
+	client := pb.NewUsersServiceClient(conn)
+	users, err := client.GetUsers(context.Background(), &pb.EmptyRequest{})
+	if err != nil {
+		log.Panic("Can't get users")
+	}
+
+	fmt.Println(users)
 
 	log.Printf("Service \"api-gateway\", listening on port: %s\n", cfg.Port)
 	stop := make(chan os.Signal, 1)
