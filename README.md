@@ -1,22 +1,70 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/vladdoroniuk/rose/main/images/logo.svg">
-    <img width="250" height="250" alt="rose_logo" src="https://raw.githubusercontent.com/vladdoroniuk/rose/main/images/logo.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./images/logo.svg">
+    <img width="250" height="auto" alt="rose_logo" src="./images/logo.svg">
   </picture>
 </p>
 
-# RoSe (Robust Services)
+# Overview
 
-## Services
+RoSe (**Ro**bust **Se**rvices)
 
-### Nginx
+# Software Development Life Cycle (SDLC)
 
-### API Gateway
+todo
 
-### Auth
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="./images/sdlc.png">
+    <img width="auto" height="auto" alt="sdlc" src="./images/sdlc.png">
+  </picture>
+</p>
 
-### Analytics
+## Analysis
 
-### Mails
+todo
 
-### Search
+## Design
+
+todo
+
+- Nginx
+
+- API Gateway
+
+- Auth
+
+  - Keycloak
+
+- Analytics
+
+  - Prometheus
+  - Grafana
+
+- Mails
+
+  - Amazon SES
+
+- Search
+
+  - Elasticsearch
+
+## Development
+
+todo
+
+## Testing
+
+todo
+
+## Deployment
+
+todo
+
+## Maintenance
+
+todo
+
+# Roadmap
+
+todo
