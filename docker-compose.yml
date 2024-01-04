@@ -6,8 +6,8 @@ services:
     build:
       context: .
       dockerfile: ./services/api-gateway/Dockerfile
-    #    ports:
-    #      - 3000:3000
+    ports:
+      - 3000:3000
     depends_on:
       - auth
     networks:

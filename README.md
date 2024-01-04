@@ -28,9 +28,9 @@ todo
 
 todo
 
-- Nginx
-
 - API Gateway
+
+  - Nginx
 
 - Auth
 
