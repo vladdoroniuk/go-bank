@@ -30,24 +30,26 @@ todo
 
 - API Gateway
 
-  - Nginx
+  - Apache APISIX
 
-- Auth
+- IAM
 
   - Keycloak
 
-- Analytics
+- Metrics
 
   - Prometheus
   - Grafana
 
+- Logs
+
+  - Elasticsearch
+  - Logstash
+  - Kibana
+
 - Mails
 
   - Amazon SES
-
-- Search
-
-  - Elasticsearch
 
 ## Development
 

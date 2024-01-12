@@ -4,8 +4,14 @@ package auth.v1;
 
 option go_package = "github.com/vladdoroniuk/rose/proto_gen/auth";
 
+import "google/api/annotations.proto";
+
 service UsersService {
-  rpc GetUsers (EmptyRequest) returns (GetUsersResponse);
+  rpc GetUsers (EmptyRequest) returns (GetUsersResponse) {
+    option (google.api.http) = {
+        get: "/v1/users"
+      };
+  };
 }
 
 message EmptyRequest {}

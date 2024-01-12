@@ -1,4 +1,7 @@
 version: v1
+name: buf.build/rose/proto
+deps:
+  - buf.build/googleapis/googleapis
 breaking:
   use:
     - FILE

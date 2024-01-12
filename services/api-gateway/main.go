@@ -1,4 +1,4 @@
-package main
+/* package main
 
 import (
 	"context"
@@ -8,11 +8,11 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/caarlos0/env"
+	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	"github.com/caarlos0/env"
-	"github.com/gorilla/mux"
 	pb "github.com/vladdoroniuk/rose/proto_gen/auth"
 )
 
@@ -49,4 +49,47 @@ func main() {
 	signal.Notify(stop, syscall.SIGTERM, syscall.SIGINT)
 	<-stop
 	log.Print("Gracefully stopped")
+} */
+
+package main
+
+import (
+	"context"
+	"log"
+	"net/http"
+
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/grpclog"
+
+	gw "github.com/vladdoroniuk/rose/proto_gen/auth"
+)
+
+func run() error {
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	var opts []grpc.DialOption
+	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
+
+	conn, err := grpc.Dial(":3001", opts...)
+	if err != nil {
+		log.Panic("Fail to dial")
+	}
+	defer conn.Close()
+
+	mux := runtime.NewServeMux()
+	if err := gw.RegisterUsersServiceHandler(ctx, mux, conn); err != nil {
+		return err
+	}
+
+	return http.ListenAndServe(":3000", mux)
+}
+
+func main() {
+	if err := run(); err != nil {
+		grpclog.Fatal(err)
+	}
 }
