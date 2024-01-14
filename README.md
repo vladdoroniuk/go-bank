@@ -26,30 +26,39 @@ todo
 
 ## Design
 
-todo
+### Hosting Solutions
 
-- API Gateway
+- Self-hosted with **Docker Compose**
+- Self-hosted with **Kubernetes**
+- Cloud (provisioned with **Terraform**)
 
-  - Apache APISIX
+### Messaging
 
-- IAM
+- Sync Messaging: **REST (JSON)**, **gRPC**
 
-  - Keycloak
+### Services
 
-- Metrics
+- API Gateway: **Kong**
 
-  - Prometheus
-  - Grafana
+- Identity and Access Management (IAM): **Auth0**
 
-- Logs
+- Monitoring: **Prometheus**, **Grafana**
 
-  - Elasticsearch
-  - Logstash
-  - Kibana
+- Logging: **Elasticsearch**, **Logstash**, **Kibana**
 
-- Mails
+- Error Tracking: **Sentry**
 
-  - Amazon SES
+### Cloud Providers
+
+- AWS:
+  - Firewall: **WAF**
+  - CDN: **CloudFront**
+  - DNS: **Route 53**
+  - Container Registry: **ECR**
+  - Container Orchestration: **ECS** + **Fargate**
+  - PostgreSQL: **RDS**
+- Elastic Cloud: **Elasticsearch**, **Kibana**
+- Grafana Cloud: **Prometheus**, **Grafana**
 
 ## Development
 

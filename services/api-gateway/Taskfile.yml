@@ -1,16 +1,31 @@
 version: "3"
 
-vars:
-  SERVICE_NAME: api-gateway
-
-dotenv: [".env"]
-
 tasks:
-  go_build:
+  colima_start:
     cmds:
-      - go build -o ./bin/{{.SERVICE_NAME}}
+      - colima start --arch linux/amd64
 
-  go_run:
-    deps: [go_build]
+  docker_stop_all:
+    deps: [colima_start]
     cmds:
-      - ./bin/{{.SERVICE_NAME}}
+      - docker ps -q | xargs -r docker stop
+
+  docker_prune_all:
+    deps: [colima_start, docker_stop_all]
+    cmds:
+      - docker system prune -af
+
+  docker_up:
+    deps: [colima_start]
+    cmds:
+      - docker compose up -d
+
+  docker_bk_up:
+    deps: [colima_start, docker_prune_all]
+    cmds:
+      - DOCKER_BUILDKIT=0 docker compose up -d
+
+  docker_debug_run:
+    deps: [colima_start]
+    cmds:
+      - docker run --rm -it {{.CLI_ARGS}} sh
