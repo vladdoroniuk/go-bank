@@ -29,7 +29,7 @@ todo
 ### Hosting Solutions
 
 - Self-hosted with **Docker Compose**
-- Self-hosted with **Kubernetes**
+- Self-hosted with **Kubernetes** + **Helm**
 - Cloud (provisioned with **Terraform**)
 
 ### Communication
