@@ -32,9 +32,9 @@ todo
 - Self-hosted with **Kubernetes**
 - Cloud (provisioned with **Terraform**)
 
-### Messaging
+### Communication
 
-- Sync Messaging: **REST (JSON)**, **gRPC**
+- Sync Communication: **REST (JSON)**, **gRPC**
 
 ### Services
 
@@ -56,6 +56,7 @@ todo
   - DNS: **Route 53**
   - Container Registry: **ECR**
   - Container Orchestration: **ECS** + **Fargate**
+  - File System: **EFS**
   - PostgreSQL: **RDS**
 - Elastic Cloud: **Elasticsearch**, **Kibana**
 - Grafana Cloud: **Prometheus**, **Grafana**
