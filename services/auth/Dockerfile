@@ -1,7 +1,7 @@
 FROM golang:1.21.5-alpine
 
 # Define envs
-ENV HOST_SERVICE_DIR=/services/auth
+ENV HOST_SERVICE_DIR=/services/api-gateway
 ENV CONTAINER_ROOT_DIR=/app
 ENV CONTAINER_SERVICE_DIR=${CONTAINER_ROOT_DIR}${HOST_SERVICE_DIR}
 ENV ALPINE_TESTING_REPO=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
@@ -32,7 +32,7 @@ RUN go mod download
 COPY ${HOST_SERVICE_DIR}/*.go ./
 
 # Build
-RUN CGO_ENABLED=0 GOOS=linux go build -o ./bin/auth
+RUN CGO_ENABLED=0 GOOS=linux go build -o ./bin/api-gateway
 
 # Run
-CMD ["sh", "-c", "${CONTAINER_SERVICE_DIR}/bin/auth"]
+CMD ["sh", "-c", "${CONTAINER_SERVICE_DIR}/bin/api-gateway"]

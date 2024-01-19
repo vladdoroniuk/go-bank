@@ -38,28 +38,25 @@ todo
 
 ### Services
 
-- API Gateway: **Kong**
+| Name                          | Use case                             | Cloud provider      | Can be self-hosted?         |
+| ----------------------------- | ------------------------------------ | ------------------- | --------------------------- |
+| **Kong**                      | API gateway                          | Kong Cloud          | +                           |
+| **Auth0**                     | Identity and Access Management (IAM) | Auth0               | - (Keycloak or SuperTokens) |
+| **Prometheus**                | Metrics collection and storage       | Grafana Cloud       | +                           |
+| **Grafana**                   | Metrics visualization                | Grafana Cloud       | +                           |
+| **Elasticsearch**             | Logs storage                         | Elastic Cloud       | +                           |
+| **Logstash**                  | Logs processing pipeline             | - (runs in AWS ECS) | +                           |
+| **Kibana**                    | Logs visualization                   | Elastic Cloud       | +                           |
+| **Sentry**                    | Error tracking                       | Sentry              | +                           |
+| **AWS WAF**                   | Firewall                             | AWS                 | ?                           |
+| **AWS CloudFront**            | Content Delivery Network (CDN)       | AWS                 | ?                           |
+| **AWS Route 53**              | Domain Name System (DNS)             | AWS                 | ?                           |
+| **AWS ECR**                   | Container registry                   | AWS                 | +- (Docker images)          |
+| **AWS ECS** + **AWS Fargate** | Container orchestration              | AWS                 | +- (Kubernetes)             |
+| **AWS EFS**                   | File system for ECS volumes          | AWS                 | +- (Host file system)       |
+| **AWS RDS**                   | PostgreSQL database                  | AWS                 | +- (PostgreSQL)             |
 
-- Identity and Access Management (IAM): **Auth0**
-
-- Monitoring: **Prometheus**, **Grafana**
-
-- Logging: **Elasticsearch**, **Logstash**, **Kibana**
-
-- Error Tracking: **Sentry**
-
-### Cloud Providers
-
-- AWS:
-  - Firewall: **WAF**
-  - CDN: **CloudFront**
-  - DNS: **Route 53**
-  - Container Registry: **ECR**
-  - Container Orchestration: **ECS** + **Fargate**
-  - File System: **EFS**
-  - PostgreSQL: **RDS**
-- Elastic Cloud: **Elasticsearch**, **Kibana**
-- Grafana Cloud: **Prometheus**, **Grafana**
+? - additional research needed
 
 ## Development
 
