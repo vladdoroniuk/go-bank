@@ -1,64 +1,39 @@
-version: "3.8"
+version: "3.9"
 
 services:
-  kong-db:
-    image: postgres:13.13-bullseye
-    container_name: kong-db
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_DB: kong
-      POSTGRES_USER: kong
-      POSTGRES_PASSWORD: kong
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "kong"]
-      interval: 5s
-      timeout: 30s
-      retries: 3
-    restart: on-failure
-    networks:
-      - kong_net
-    volumes:
-      - kong_data:/var/lib/postgresql/data
-
   kong-migrations:
     image: kong
     container_name: kong-migration
     command: kong migrations bootstrap
-    depends_on:
-      - kong-db
     environment:
       KONG_DATABASE: postgres
-      KONG_PG_HOST: kong-db
-      KONG_PG_DATABASE: kong
-      KONG_PG_USER: kong
-      KONG_PG_PASSWORD: kong
+      KONG_PG_HOST: kong-database
+      KONG_PG_USER: admin
+      KONG_PG_PASSWORD: admin
     networks:
       - kong_net
-    restart: on-failure
+      - postgres_net
+    depends_on:
+      - postgres
 
   kong-migrations-up:
     image: kong
     container_name: kong-migration-up
     command: kong migrations up && kong migrations finish
-    depends_on:
-      - kong-db
     environment:
       KONG_DATABASE: postgres
-      KONG_PG_DATABASE: kong
-      KONG_PG_HOST: kong-db
-      KONG_PG_USER: kong
-      KONG_PG_PASSWORD: kong
+      KONG_PG_HOST: kong-database
+      KONG_PG_USER: admin
+      KONG_PG_PASSWORD: admin
     networks:
       - kong_net
-    restart: on-failure
+      - postgres_net
+    depends_on:
+      - postgres
 
   kong:
     image: kong:3.5.0-ubuntu
     container_name: kong
-    user: kong
-    depends_on:
-      - kong-db
     environment:
       KONG_ADMIN_ACCESS_LOG: /dev/stdout
       KONG_ADMIN_ERROR_LOG: /dev/stderr
@@ -67,35 +42,28 @@ services:
       KONG_ADMIN_GUI_PATH: /manager
       KONG_ADMIN_GUI_URL: http://localhost:8002/manager
       KONG_DATABASE: postgres
-      KONG_PG_HOST: kong-db
-      KONG_PG_DATABASE: kong
-      KONG_PG_USER: kong
-      KONG_PG_PASSWORD: kong
+      KONG_PG_HOST: kong-database
+      KONG_PG_USER: admin
+      KONG_PG_PASSWORD: admin
       KONG_PROXY_ACCESS_LOG: /dev/stdout
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_PREFIX: /var/run/kong
-    networks:
-      - kong_net
     ports:
       - 8000:8000
       - 8002:8002
       - 8443:8443
       - 8001:8001
       - 8444:8444
-    healthcheck:
-      test: ["CMD", "kong", "health"]
-      interval: 10s
-      timeout: 10s
-      retries: 10
-    restart: on-failure:5
-    read_only: true
+    networks:
+      - kong_net
+      - postgres_net
     volumes:
       - kong_prefix_vol:/var/run/kong
       - kong_tmp_vol:/tmp
+    depends_on:
+      - postgres
 
 volumes:
-  kong_data: {}
-  konga_data: {}
   kong_prefix_vol:
     driver_opts:
       type: tmpfs
@@ -106,6 +74,4 @@ volumes:
       device: tmpfs
 
 networks:
-  kong_net:
-    external: false
-    driver: bridge
+  kong_net: {}

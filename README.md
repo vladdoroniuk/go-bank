@@ -26,7 +26,7 @@ todo
 
 ## Design
 
-### Hosting Solutions
+### Hosting solutions
 
 - Self-hosted with **Docker Compose**
 - Self-hosted with **Kubernetes** + **Helm**
@@ -36,27 +36,29 @@ todo
 
 - Sync Communication: **REST (JSON)**, **gRPC**
 
-### Services
+### External services
 
-| Name                          | Use case                             | Cloud provider      | Can be self-hosted?         |
-| ----------------------------- | ------------------------------------ | ------------------- | --------------------------- |
-| **Kong**                      | API gateway                          | Kong Cloud          | +                           |
-| **Auth0**                     | Identity and Access Management (IAM) | Auth0               | - (Keycloak or SuperTokens) |
-| **Prometheus**                | Metrics collection and storage       | Grafana Cloud       | +                           |
-| **Grafana**                   | Metrics visualization                | Grafana Cloud       | +                           |
-| **Elasticsearch**             | Logs storage                         | Elastic Cloud       | +                           |
-| **Logstash**                  | Logs processing pipeline             | - (runs in AWS ECS) | +                           |
-| **Kibana**                    | Logs visualization                   | Elastic Cloud       | +                           |
-| **Sentry**                    | Error tracking                       | Sentry              | +                           |
-| **AWS WAF**                   | Firewall                             | AWS                 | ?                           |
-| **AWS CloudFront**            | Content Delivery Network (CDN)       | AWS                 | ?                           |
-| **AWS Route 53**              | Domain Name System (DNS)             | AWS                 | ?                           |
-| **AWS ECR**                   | Container registry                   | AWS                 | +- (Docker images)          |
-| **AWS ECS** + **AWS Fargate** | Container orchestration              | AWS                 | +- (Kubernetes)             |
-| **AWS EFS**                   | File system for ECS volumes          | AWS                 | +- (Host file system)       |
-| **AWS RDS**                   | PostgreSQL database                  | AWS                 | +- (PostgreSQL)             |
+| Name                  | Use case                             |
+| --------------------- | ------------------------------------ |
+| Kong                  | API gateway                          |
+| Keycloak              | Identity and Access Management (IAM) |
+| Prometheus            | Metrics collection and storage       |
+| Grafana               | Metrics visualization                |
+| Elasticsearch         | Logs storage                         |
+| Logstash              | Logs processing pipeline             |
+| Kibana                | Logs visualization                   |
+| Sentry                | Error tracking                       |
+| AWS WAF               | Web Application Firewall (WAF)       |
+| AWS CloudFront        | Content Delivery Network (CDN)       |
+| AWS Route 53          | Domain Name System (DNS)             |
+| AWS ECR               | Container registry                   |
+| AWS ECS + AWS Fargate | Container orchestration              |
+| AWS EFS               | File system for ECS volumes          |
+| AWS RDS               | PostgreSQL database                  |
 
-? - additional research needed
+### Internal services
+
+todo
 
 ## Development
 
