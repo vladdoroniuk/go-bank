@@ -11,11 +11,11 @@ services:
     ports:
       - 5432:5432
     environment:
+      - POSTGRES_MULTIPLE_DATABASES=kong
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_MULTIPLE_DATABASES=kong
     volumes:
-      - ./scripts/create-databases.sh:/docker-entrypoint-initdb.d/create-databases.sh
+      - ./scripts/db_init:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
     networks:
       - postgres_net
