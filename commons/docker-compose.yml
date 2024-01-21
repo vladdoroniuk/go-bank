@@ -1,8 +1,0 @@
-version: "3.9"
-
-volumes:
-  postgres_data: {}
-
-networks:
-  postgres_net:
-    external: true

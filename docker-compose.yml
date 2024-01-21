@@ -1,7 +1,7 @@
 version: "3.9"
 
 include:
-  - ./commons/docker-compose.yml
+  - ./services/api-gateway/docker-compose.yml
   - ./services/auth/docker-compose.yml
 
 services:
@@ -13,7 +13,16 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
+      - POSTGRES_MULTIPLE_DATABASES=kong
     volumes:
+      - ./scripts/create-databases.sh:/docker-entrypoint-initdb.d/create-databases.sh
       - postgres_data:/var/lib/postgresql/data
     networks:
       - postgres_net
+
+volumes:
+  postgres_data: {}
+
+networks:
+  postgres_net:
+    external: true
