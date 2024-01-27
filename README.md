@@ -34,7 +34,8 @@ todo
 
 ### Communication
 
-- Sync Communication: **REST (JSON)**, **gRPC**
+- Sync communication: **REST (JSON)**, **gRPC**
+- Async communication: **RabbitMQ**
 
 ### External services
 
